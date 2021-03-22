@@ -148,6 +148,7 @@ def get_report():
 
 def show_subdivisions():
     """Вывод на экран всех отделов из файла с сотрудниками компании"""
+    
     results = read_csv()
     subdivisions = set()
     for i in range(len(results)):
@@ -169,6 +170,7 @@ def save_report():
 
 def show_report():
     """Вывод на экран отчета"""
+    
     report = get_report()
     for i in range(len(report)):
         print(report[i])
@@ -178,8 +180,7 @@ def show_report():
 def menu():
     """Выбор дейсвтия"""
 
-    flag = True
-    while(flag):
+    while():
         print("1.Сгенерировать новые данные")
         print("2.Вывести все отделы")
         print("3.Вывести сводный отчёт")
