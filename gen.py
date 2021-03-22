@@ -97,7 +97,7 @@ def datagenerate(records):
     with open("data.csv", 'wt') as csvFile:
         writer = csv.DictWriter(csvFile, fieldnames=headers)
         writer.writeheader()
-        for i in range(records):
+        for row in range(records):
             writer.writerow({
                 "Full Name": fake.name(),
                 "Position": fake.random_element(elements=position_list),
@@ -125,8 +125,8 @@ def get_report():
     results = read_csv()
     report = []
     subdivisions_copy = []
-    for i in range(len(results)):
-        subdivisions_copy.append(results[i]["Subdivision"])
+    for row in results:
+        subdivisions_copy.append(row["Subdivision"])
     subdivisions = Counter(subdivisions_copy)
 
     for key in subdivisions:
@@ -135,12 +135,12 @@ def get_report():
         tmp_list.append(key)
         tmp_list.append(subdivisions[key])
 
-        for i in range(len(results)):
-            if results[i]["Subdivision"] == key:
-                salaries.append(int(results[i]["Salary"]))
+        for row in results:
+            if row["Subdivision"] == key:
+                salaries.append(int(row["Salary"]))
 
-        tmp_list.append(max(salaries))
         tmp_list.append(min(salaries))
+        tmp_list.append(max(salaries))
         tmp_list.append(sum(salaries) / len(salaries))
         report.append(tmp_list)
     return report
@@ -148,11 +148,10 @@ def get_report():
 
 def show_subdivisions():
     """Вывод на экран всех отделов из файла с сотрудниками компании"""
-    
     results = read_csv()
     subdivisions = set()
-    for i in range(len(results)):
-        subdivisions.add(results[i]["Subdivision"])
+    for row in results:
+        subdivisions.add(row["Subdivision"])
     for x in subdivisions:
         print(x)
     print()
@@ -170,17 +169,16 @@ def save_report():
 
 def show_report():
     """Вывод на экран отчета"""
-    
     report = get_report()
-    for i in range(len(report)):
-        print(report[i])
+    for row in report:
+        print(row)
     print()
 
 
 def menu():
     """Выбор дейсвтия"""
 
-    while(True):
+    while True:
         print("1.Сгенерировать новые данные")
         print("2.Вывести все отделы")
         print("3.Вывести сводный отчёт")
